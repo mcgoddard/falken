@@ -1,0 +1,19 @@
+body {
+    text-align: center;
+    float: center;
+}
+
+.score-table {
+    width: 80%;
+    margin: 0px auto;
+}
+
+.team-name {
+    width: 50%;
+    float: left;
+}
+
+.score {
+    width: 50%;
+    float: left;
+}
