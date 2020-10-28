@@ -47,3 +47,24 @@ resources:
           - AttributeName: score
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
+    siteBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: falken-app
+        AccessControl: PublicRead
+        CorsConfiguration:
+          CorsRules:
+            - AllowedHeaders: ['*']
+              AllowedMethods: [GET]
+              AllowedOrigins: ['*']
+        WebsiteConfiguration:
+          IndexDocument: index.html
+
+plugins:
+  - serverless-s3-sync
+
+custom:
+  s3Sync:
+    - bucketName: falken-app
+      localDir: ../app/dist
+      acl: public-read

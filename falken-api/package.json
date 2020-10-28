@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "serverless": "^2.8.0",
-    "serverless-http": "^2.6.0"
+    "serverless-http": "^2.6.0",
+    "serverless-s3-sync": "^1.15.0"
   }
 }
