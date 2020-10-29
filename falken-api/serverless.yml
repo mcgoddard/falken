@@ -20,8 +20,9 @@ provider:
 
 functions:
   app-api:
-    handler: handler.handle
+    handler: api.handle
     memorySize: 128
+    reservedConcurrency: 10
     events:
       - httpApi:
           path: /{any+}
@@ -29,6 +30,16 @@ functions:
       - httpApi:
           path: /
           method: '*'
+  score-updates:
+    handler: updates.handle
+    memorySize: 128
+    reservedConcurrency: 10
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - ScoresQueue
+              - Arn
 
 resources:
   Resources:
@@ -59,6 +70,10 @@ resources:
               AllowedOrigins: ['*']
         WebsiteConfiguration:
           IndexDocument: index.html
+    ScoresQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: "ScoresQueue"
 
 plugins:
   - serverless-s3-sync
