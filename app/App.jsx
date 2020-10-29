@@ -1,6 +1,7 @@
 import 'regenerator-runtime/runtime';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import FlipMove from 'react-flip-move';
 import Score from './Score.jsx';
 import './main.css';
 
@@ -13,13 +14,20 @@ const App = () => {
       const result = await axios.get(base_url + 'scores');
       setScores(result.data);
     }
+    setInterval(async () => {
+      console.log("Checked scores");
+      getScores();
+    }, 30000);
     getScores();
-  }, [])
+  }, []);
   return (
   <>
-    <h1>WarGames - Scoreboard</h1>
+    <h1>WARGAMES</h1>
+    <h3>SHALL WE PLAY A GAME?</h3>
     <div className="score-table">
-      { scores.map(s => <Score key={s.team_name} team_name={s.team_name} score={s.score} />) }
+      <FlipMove duration={500}>
+        { scores.sort((a, b) => (a.score < b.score) ? 1 : -1).map(s => <Score key={s.team_name} team_name={s.team_name} score={s.score} />) }
+      </FlipMove>
     </div>
   </>
   )
