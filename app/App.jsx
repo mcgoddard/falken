@@ -23,7 +23,7 @@ const App = () => {
   return (
   <>
     <h1>WARGAMES</h1>
-    <h3>SHALL WE PLAY A GAME?</h3>
+    <h2>SHALL WE PLAY A GAME?</h2>
     <div className="score-table">
       <FlipMove duration={500}>
         { scores.sort((a, b) => (a.score < b.score) ? 1 : -1).map(s => <Score key={s.team_name} team_name={s.team_name} score={s.score} />) }

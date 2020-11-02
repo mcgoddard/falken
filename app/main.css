@@ -15,8 +15,8 @@ body {
     background-color: #444;
     border-color: #888;
     border-width: 10px;
-    padding: 50px;
-    margin: 50px;
+    padding: 25px;
+    margin: 25px;
     border-style: solid;
     display: flex;
 }
@@ -47,4 +47,16 @@ body {
 .change-scores-leave.change-scores-leave-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
+}
+
+h1 {
+    font-size: 80px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 40px;
 }
