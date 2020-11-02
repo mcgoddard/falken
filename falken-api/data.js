@@ -7,7 +7,7 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 var params = {
-  TableName: "scoresTable",
+  TableName: "falkenScoresTable",
 };
 
 const getAllScores = async () => {

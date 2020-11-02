@@ -16,7 +16,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: 'arn:aws:dynamodb:eu-west-2:130979854346:table/scoresTable'
+      Resource: 'arn:aws:dynamodb:eu-west-2:130979854346:table/falkenScoresTable'
 
 functions:
   app-api:
@@ -43,20 +43,16 @@ functions:
 
 resources:
   Resources:
-    scoresTable:
+    falkenTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: scoresTable
+        TableName: falkenScoresTable
         AttributeDefinitions:
           - AttributeName: team_name
             AttributeType: S
-          - AttributeName: score
-            AttributeType: N
         KeySchema:
           - AttributeName: team_name
             KeyType: HASH
-          - AttributeName: score
-            KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
     siteBucket:
       Type: AWS::S3::Bucket
@@ -83,3 +79,4 @@ custom:
     - bucketName: falken-app
       localDir: ../app/dist
       acl: public-read
+      deleteRemoved: true
