@@ -1,12 +1,12 @@
 const { json } = require("express");
 const AWS = require('aws-sdk');
-    
+
 const document_client = new AWS.DynamoDB.DocumentClient();
 
 exports.handle = async function(event, context) {
   await Promise.all(event.Records.map(async record => {
     const { body } = record;
-    console.log(body);
+    console.info("Body: " + body);
 
     const update = JSON.parse(body);
     const params = {
@@ -20,10 +20,12 @@ exports.handle = async function(event, context) {
       }
     };
 
-    await document_client.update(params, function(err, data) {
-      if (err) console.log(err);
-      else console.log(data);
-    }).promise();
+    try {
+      const result = await document_client.update(params).promise();
+      console.info(`Wrote to dynamodb: ${JSON.stringify(result)}`);
+    } catch (error) {
+      console.error(`Error writing to dynamodb: ${error}`);
+    }
   }));
   return {};
 }

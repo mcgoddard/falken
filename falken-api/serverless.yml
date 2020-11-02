@@ -17,6 +17,11 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: 'arn:aws:dynamodb:eu-west-2:130979854346:table/falkenScoresTable'
+    - Effect: Allow
+      Action:
+        - sqs:SendMessage
+        - sqs:DeleteMessage
+      Resource: 'arn:aws:sqs:eu-west-2:130979854346:ScoresQueue'
 
 functions:
   app-api:
@@ -40,6 +45,20 @@ functions:
             Fn::GetAtt:
               - ScoresQueue
               - Arn
+          batchSize: 1
+  traffic:
+    handler: traffic.handle
+    timeout: 70
+    memorySize: 256
+    reservedConcurrency: 3
+    events:
+      - schedule:
+          rate: rate(1 minute)
+          enabled: false
+    environment:
+      BASE_URLS: http://piemdb.infinipie.works/,http://piespace.infinipie.works/,https://recipies.infinipie.works/
+      TEAM_NAMES: PieMDB,PieSpace,Recipies
+      QUEUE_URL: https://sqs.eu-west-2.amazonaws.com/130979854346/ScoresQueue
 
 resources:
   Resources:
@@ -70,6 +89,7 @@ resources:
       Type: "AWS::SQS::Queue"
       Properties:
         QueueName: "ScoresQueue"
+        VisibilityTimeout: 60
 
 plugins:
   - serverless-s3-sync
