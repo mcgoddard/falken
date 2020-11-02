@@ -35,6 +35,8 @@ functions:
       - httpApi:
           path: /
           method: '*'
+    environment:
+      QUEUE_URL: https://sqs.eu-west-2.amazonaws.com/130979854346/ScoresQueue
   score-updates:
     handler: updates.handle
     memorySize: 128
