@@ -5,7 +5,7 @@ import FlipMove from 'react-flip-move';
 import Score from './Score.jsx';
 import './main.css';
 
-const base_url = 'https://fgq94frah7.execute-api.eu-west-2.amazonaws.com/'
+const base_url = 'https://falken-api.mgoddard.net/'
 
 const App = () => {
   const [scores, setScores] = useState([]);

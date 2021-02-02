@@ -12,7 +12,10 @@ const { getAllScores } = require('./data');
 AWS.config.update({region: 'eu-west-2'});
 const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://falken.mgoddard.net',
+  optionsSuccessStatus: 200,
+}));
 app.use(bodyParser.json());
 
 app.get('/scores', async (req, res) => {

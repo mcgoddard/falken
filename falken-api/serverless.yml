@@ -48,19 +48,19 @@ functions:
               - ScoresQueue
               - Arn
           batchSize: 1
-  traffic:
-    handler: traffic.handle
-    timeout: 70
-    memorySize: 256
-    reservedConcurrency: 3
-    events:
-      - schedule:
-          rate: rate(1 minute)
-          enabled: false
-    environment:
-      BASE_URLS: http://piemdb.infinipie.works/,http://piespace.infinipie.works/,https://recipies.infinipie.works/
-      TEAM_NAMES: PieMDB,PieSpace,Recipies
-      QUEUE_URL: https://sqs.eu-west-2.amazonaws.com/130979854346/ScoresQueue
+  # traffic:
+  #   handler: traffic.handle
+  #   timeout: 70
+  #   memorySize: 256
+  #   reservedConcurrency: 3
+  #   events:
+  #     - schedule:
+  #         rate: rate(1 minute)
+  #         enabled: false
+  #   environment:
+  #     BASE_URLS: http://piemdb.infinipie.works/,http://piespace.infinipie.works/,https://recipies.infinipie.works/
+  #     TEAM_NAMES: PieMDB,PieSpace,Recipies
+  #     QUEUE_URL: https://sqs.eu-west-2.amazonaws.com/130979854346/ScoresQueue
 
 resources:
   Resources:
@@ -98,7 +98,7 @@ plugins:
 
 custom:
   s3Sync:
-    - bucketName: falken-app
+    - bucketName: falken.mgoddard.net
       localDir: ../app/dist
       acl: public-read
       deleteRemoved: true
